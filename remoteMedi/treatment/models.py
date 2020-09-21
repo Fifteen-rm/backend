@@ -1,7 +1,7 @@
 from django.db import models
-from ..doctor.models import Doctor
-from ..patient.models import Patient
-from ..hospital.models import Major
+from doctor.models import Doctor
+from patient.models import Patient
+from hospital.models import Major
 import datetime
 # Create your models here.
 
