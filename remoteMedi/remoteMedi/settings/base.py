@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'authenticate',
-    'healthcheck'
+    'healthcheck',
+    'doctor',
+    'hospital',
+    'medicalkit',
+    'patient',
+    'treatment'
 ]
 
 REST_FRAMEWORK = {
