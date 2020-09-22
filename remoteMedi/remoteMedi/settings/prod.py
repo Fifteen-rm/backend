@@ -29,6 +29,6 @@ else: # .env
             'USER': os.getenv('MYSQL_ID'), # master username
             'PASSWORD': os.getenv('MYSQL_PW'), # master password
             'HOST': os.getenv('MYSQL_IP'), # Endpoint
-            'PORT': os.getenv('MYSQL_PORT'),
+            'PORT': os.getenv('MYSQL_PORT')
     }
 }
