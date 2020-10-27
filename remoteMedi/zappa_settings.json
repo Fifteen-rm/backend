@@ -11,6 +11,7 @@
         "django_settings": "remoteMedi.settings.prod",
         "project_name": "backend",
         "runtime": "python3.7",
+        "profile_name": "key",
         "s3_bucket": "zappa-bnaski365",
         "aws_region": "us-east-2"
     }

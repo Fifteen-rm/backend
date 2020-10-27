@@ -6,7 +6,7 @@ on:
       - master
   push:
     branches:
-      - master
+      - release/**
   
 jobs:
   CI:
@@ -38,7 +38,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r remoteMedi/requirements.txt
+        pip install -r requirements.txt
         pip install pytest-django
     - name: Run migrations
       env:
