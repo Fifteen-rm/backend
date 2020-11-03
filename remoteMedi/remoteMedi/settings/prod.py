@@ -4,7 +4,7 @@ import os
 DEBUG = False
 HOST = os.getenv('PROD_HOST')
 INSTALLED_APPS += ['django_s3_storage']
-S3_BUCKET = "zappa-bnaski365"
+S3_BUCKET = "zappa-sv7emz4ut"
 STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
 AWS_S3_BUCKET_NAME_STATIC = S3_BUCKET
 STATIC_URL = "https://%s.s3.amazonaws.com/" % S3_BUCKET

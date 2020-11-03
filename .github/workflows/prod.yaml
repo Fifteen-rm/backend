@@ -43,7 +43,7 @@ jobs:
     - name: Run migrations
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      run: python remoteMedi/manage.py migrate --settings=remoteMedi.settings.prod
+      run: python manage.py migrate --settings=remoteMedi.settings.prod
     - name: Run tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
