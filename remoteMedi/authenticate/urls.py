@@ -7,10 +7,10 @@ from .views import kakaosendmsg
 from .views import login
 
 urlpatterns = [
-    path('kakao/auth/', kakaoauth),
+    path('kakao/auth', kakaoauth),
     path('kakao/login/', kakaologin),
     path('kakao/logout/', kakaologout),
-    path('redirect/test', redirect_test),
+    path('redirect/test/', redirect_test),
     path('kakaosendmsg/', kakaosendmsg),
     path('login/', login),
 ]

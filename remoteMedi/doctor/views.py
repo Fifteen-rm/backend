@@ -33,4 +33,10 @@ def description(request):
     except:
         res = JsonResponse({"message" : "can't write"}, status=400)
     
+    message_url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+
+    logout_id = requests.post(url=message_url, headers = Authorization)
+
+
     return res
+
