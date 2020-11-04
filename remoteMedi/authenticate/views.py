@@ -54,11 +54,12 @@ def kakaoauth(request):
         token_request = requests.get(access_token_request_uri)
     except Exception as e:
         return JsonResponse({"message" : "failed"}, status=500)
-        
-    res = JsonResponse({"message" : "ok"}, status=200)
-    token_json = token_request.json();
-    res.set_cookie('access_token', token_json['access_token'], httponly=True)
-    res.set_cookie('refresh_token',token_json['refresh_token'], httponly=True)
+    
+    token_json = token_request.json()
+    res = JsonResponse({"message" : "ok", "token" : token_json}, status=200)
+
+    res.set_cookie('access_token', token_json['access_token'])
+    res.set_cookie('refresh_token',token_json['refresh_token'])
     
     return res; 
     
