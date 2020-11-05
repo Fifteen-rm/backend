@@ -57,8 +57,9 @@ def kakaoauth(request):
     except Exception as e:
         return JsonResponse({"message" : "failed"}, status=500)
         
-    res = JsonResponse({"message" : "ok"}, status=200)
     token_json = token_request.json()
+    res = JsonResponse({"message" : "ok", "token" : token_json}, status=200)
+
     res.set_cookie('access_token', token_json['access_token'], httponly=True)
     res.set_cookie('refresh_token',token_json['refresh_token'], httponly=True)
 
@@ -79,21 +80,3 @@ def kakaologout(request):
 @api_view(['GET'])
 def redirect_test(request):
     return redirect("https://www.naver.com")
-
-@api_view(['POST'])
-def kakaosendmsg(request):
-    client_id = settings.KAKAO_API
-    Authorization = request.headers.get('Authorization')
-    print(Authorization)
-    data = {
-        "template_object" : json.dumps(json.loads(request.body))
-    }
-    
-    headers = {
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Authorization':Authorization
-        }
-    send_url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
-    result = requests.post(url=send_url, headers = headers, data = data)
-
-    return Response(result)
