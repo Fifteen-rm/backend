@@ -8,7 +8,12 @@ from django.core import serializers
 from .serializers import PatientSerializer
 import json
 import requests
+import logging
 # Create your views here.
+
+
+logger = logging.getLogger(__name__)
+
 
 @api_view(['POST'])
 def description(request):
@@ -19,17 +24,18 @@ def description(request):
     #res = JsonResponse({"message" : "Authorization fail"}, status=401)
     
     try:
-        descriptions = Description.objects.all().order_by('-created_at')[0]
+        descriptions = Description.objects.all().order_by('-created_at').first()
     
     except:
         res = JsonResponse({"message" : "can't write"}, status=400)
         return res
-    Authorization = request.headers.get('Authorization')
-
     descriptions_str =  "담당 의사 : " + str(descriptions.doctor)
-    descriptions_str += "\n환자 성명 : " + str(descriptions.patient)
+    descriptions_str += "\n환자  성명 : " + str(descriptions.patient)
     descriptions_str += "\n증상 : " + str(descriptions.patient_say)
     descriptions_str += "\n진단 내용 : " + str(descriptions.doctor_say)
+    logger.error(descriptions_str)
+
+
  
 
     post = {
@@ -39,7 +45,7 @@ def description(request):
             "web_url" : "https://mrkevinna.github.io", 
             "mobile_web_url" : "https://mrkevinna.github.io"
             },
-        "button_title" : "Check it out!"
+        "button_title" : "진료기록 바로가기"
     }
 
     
@@ -49,7 +55,7 @@ def description(request):
     
     headers = {
         'Content-Type': "application/x-www-form-urlencoded",
-        'Authorization':Authorization
+        'Authorization': Authorization
         }
     send_url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
     result = requests.post(url=send_url, headers = headers, data = data)

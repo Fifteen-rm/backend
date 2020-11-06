@@ -4,8 +4,10 @@ from django.http import JsonResponse
 from treatment.models import Description
 from .models import Doctor
 from patient.models import Patient
+import logging
 import json
 # Create your views here.
+
 
 @api_view(['POST'])
 def description(request):
@@ -18,10 +20,8 @@ def description(request):
 
     patient = body['patient']
     doctor = body['doctor']
-
-    print(Doctor.objects.get(name=doctor))
-
-
+    
+    
     #인증 실패시
     #res = JsonResponse({"message" : "Authorization fail"}, status=401)
 

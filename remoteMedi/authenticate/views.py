@@ -41,7 +41,6 @@ def kakaologin(request):
 
 def kakaoauth(request):
     
-    print("3some")
     code = request.GET['code']
     client_id = settings.KAKAO_API
     redirect_uri = f"{settings.HOST}/authenticate/kakao/auth"
