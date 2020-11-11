@@ -45,7 +45,6 @@ email = openapi.Parameter(
 @api_view(['POST'])
 def createroom(request):
     res = json.loads(request.body)
-   
     
     enc = hashlib.md5()
     enc.update(res['Patient'].encode('utf-8'))
@@ -54,10 +53,15 @@ def createroom(request):
     patient = Patient.objects.get(name=res['Patient'])
     major = Major.objects.get(name=res['Major'])
 
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", patient,", ", major,", ",encText)
+
     fb = WaitingRoom(patient = patient, major = major, room_number=encText)
     fb.save()
     
+    
+
     return Response(status=status.HTTP_200_OK)
+
 
 
 @api_view(['GET'])

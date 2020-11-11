@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from treatment.models import Description
 from django.conf import settings
 from rest_framework.response import Response
 from django.core import serializers
-from .serializers import PatientSerializer
+from .serializers import PatientSerializer, DescriptionSerializer
 import json
 import requests
 import logging
@@ -61,3 +61,26 @@ def description(request):
     result = requests.post(url=send_url, headers = headers, data = data)
 
     return Response(result)
+
+
+
+    
+@api_view(['GET'])
+def view_description(request):
+    
+    Authorization = request.headers.get('Authorization')
+
+    #인증 실패시
+    #res = JsonResponse({"message" : "Authorization fail"}, status=401)
+    
+    try:
+        descriptions = Description.objects.all().order_by('-created_at')
+
+    except:
+        return Response(status = 404)
+
+
+    ser = DescriptionSerializer(data=descriptions, many=True)
+    ser.is_valid()
+    
+    return Response(ser.data,status=200)
