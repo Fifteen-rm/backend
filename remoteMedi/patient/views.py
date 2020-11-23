@@ -77,10 +77,10 @@ def view_description(request):
         descriptions = Description.objects.all().order_by('-created_at')
 
     except:
-        return Response(status = 404)
+        return JsonResponse(status = 404)
 
 
     ser = DescriptionSerializer(data=descriptions, many=True)
     ser.is_valid()
     
-    return Response(ser.data,status=200)
+    return JsonResponse(ser.data,status=200, safe=False)
