@@ -2,19 +2,21 @@ from .base import *
 import os
 
 ALLOWED_HOSTS = [    
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'https://keykim.ddns.net',
-    'https://keykim.me'
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'keykim.ddns.net',
+    'keykim.me',
+    'vjbw52tg5f.execute-api.us-east-2.amazonaws.com'
 ]
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://127.0.0.1:3000',
-    'https://keykim.ddns.net',
+    'https://vjbw52tg5f.execute-api.us-east-2.amazonaws.com',
     'https://keykim.me'
 )
-
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
 DEBUG = True
 HOST = os.getenv('DEBUG_HOST')
