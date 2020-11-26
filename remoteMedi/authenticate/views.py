@@ -33,12 +33,14 @@ def token(request):
 
 @api_view(['GET'])
 def kakaologin(request):
+    print("print; ",settings.HOST)
     client_id = settings.KAKAO_API
     redirect_uri = f"{settings.HOST}/authenticate/kakao/auth"
     print(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
     return redirect(f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code")
 
 def kakaoauth(request):
+    
     code = request.GET['code']
     client_id = settings.KAKAO_API
     redirect_uri = f"{settings.HOST}/authenticate/kakao/auth"
@@ -49,17 +51,17 @@ def kakaoauth(request):
     access_token_request_uri += "&redirect_uri=" + redirect_uri
     access_token_request_uri += "&code=" + code
     access_token_request_uri += "&client_secret=" + client_secret
-
     try:
         token_request = requests.get(access_token_request_uri)
     except Exception as e:
         return JsonResponse({"message" : "failed"}, status=500)
-        
-    res = JsonResponse({"message" : "ok"}, status=200)
-    token_json = token_request.json();
+    
+    token_json = token_request.json()
+    res = JsonResponse({"message" : "ok", "token" : token_json}, status=200)
+
     res.set_cookie('access_token', token_json['access_token'], httponly=True)
     res.set_cookie('refresh_token',token_json['refresh_token'], httponly=True)
-    
+
     return res; 
     
     
@@ -77,30 +79,3 @@ def kakaologout(request):
 @api_view(['GET'])
 def redirect_test(request):
     return redirect("https://www.naver.com")
-
-@api_view(['POST'])
-def kakaosendmsg(request):
-    client_id = settings.KAKAO_API
-    Authorization = request.headers.get('Authorization')
-    print(Authorization)
-    
-    print("============raw body========")
-    print(request.body)
-
-    print("============load body==========")
-    print(json.loads(request.body))
-
-    print("=============load -> dump body")
-    print(type(json.dumps(json.loads(request.body))))
-    data = {
-        "template_object" : json.dumps(json.loads(request.body))
-    }
-    
-    headers = {
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Authorization':Authorization
-        }
-    send_url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
-    result = requests.post(url=send_url, headers = headers, data = data)
-
-    return Response(result)

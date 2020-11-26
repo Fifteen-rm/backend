@@ -1,5 +1,5 @@
 {
-    "prod": {
+    "dev": {
         "django_settings": "remoteMedi.settings.prod",
         "project_name": "backend",
         "runtime": "python3.7",
