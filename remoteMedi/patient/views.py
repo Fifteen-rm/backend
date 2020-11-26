@@ -29,8 +29,8 @@ def description(request):
     except:
         res = JsonResponse({"message" : "can't write"}, status=400)
         return res
-    descriptions_str =  "담당 의사 : " + str(descriptions.doctor)
-    descriptions_str += "\n환자  성명 : " + str(descriptions.patient)
+    descriptions_str =  "담당 의사 : " + str(descriptions.doctor.name)
+    descriptions_str += "\n환자  성명 : " + str(descriptions.patient.name)
     descriptions_str += "\n증상 : " + str(descriptions.patient_say)
     descriptions_str += "\n진단 내용 : " + str(descriptions.doctor_say)
     logger.error(descriptions_str)
