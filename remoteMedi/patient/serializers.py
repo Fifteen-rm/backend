@@ -21,6 +21,8 @@ class PatientSerializer(serializers.ModelSerializer):
 
 
 class DescriptionSerializer(serializers.ModelSerializer):
+    doctor = serializers.ReadOnlyField(source='doctor.name')
+    major = serializers.ReadOnlyField(source='patient_say')
     class Meta:
         model = Description
         fields = "__all__"
